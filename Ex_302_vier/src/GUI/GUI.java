@@ -1,14 +1,17 @@
 package GUI;
 
 import BL.BL;
-import BL.Players;
+import BL.Player;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class GUI extends JFrame {
 
@@ -27,8 +30,14 @@ public class GUI extends JFrame {
             bt.setText("v");
             bt.setName("" + i);
             bt.addActionListener((ActionEvent e) -> {
-                System.out.println(bt.getName());
-                bl.makeMove(Integer.parseInt(bt.getName()));
+                try {
+                    bl.makeMove(Integer.parseInt(bt.getName()));
+                    if (bl.getWinner() != Player.empty) {
+                        JOptionPane.showMessageDialog(null, "Player " + bl.getWinner() + " won!");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
                 this.updateAllLabels();
             });
             this.add(bt);

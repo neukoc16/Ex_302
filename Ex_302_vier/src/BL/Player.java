@@ -1,5 +1,5 @@
 package BL;
 
-public enum Players {
+public enum Player {
     empty, one, two;
 }
